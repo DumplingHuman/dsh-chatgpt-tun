@@ -82,6 +82,21 @@ ssh <target> "systemctl --user is-active <service>"
 | `config.agent-helm.example.yml` | Agent Helm 用户配置示例 |
 | `wait-agent-helm.sh` | 等待 daemon(3457) 就绪，供 `dsh-watch` 的 `ExecStartPre` 使用 |
 | `systemd/agent-helm-daemon.service` | daemon 常驻 + `ExecStartPre` 自动打补丁 |
+| `plugin-0.2-compat/` | 把 `@beforewave/dsh-with-chatgpt` 适配到 dsh **0.2.x**（源码补丁 + 预编译包 + 安装脚本） |
+
+## 让插件适配 dsh 0.2.x（已实测跑通）
+
+上游插件 peer 上限是 `<0.2.0`，在最新的 dsh 0.2.x 上会挂。我们不靠等上游，自己改了：
+
+- 断点 1：图标改成了 `IconCodeOutline` + `size` prop（旧名 `IconCodeOutline16` 变 `undefined` → React #130）
+- 断点 2：`@deepseek-ai/dsh-agent-presets` 被删 → 退回只装 model selection
+- 断点 3：`persistence.inspect()` / `session.events` → `open()/read()/snapshotEvents()`
+
+详见 [`plugin-0.2-compat/README.md`](plugin-0.2-compat/README.md)，补丁见
+[`plugin-0.2-compat/dsh-0.2-compat.patch`](plugin-0.2-compat/dsh-0.2-compat.patch)。
+
+**在 `dsh 0.2.1-alpha.2` 上实测**：面板正常渲染（无 #130）、`core/tunnel/serena/localMcp/LSP` 全 running、
+`command_execute` 可跑 `uname`，`ssh 174 "systemctl --user is-active dsh-web-8089"` → `active`。
 
 ## 注意事项
 

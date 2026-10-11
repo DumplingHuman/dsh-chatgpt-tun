@@ -1,0 +1,423 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..229672e
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,4 @@
++node_modules/
++lib/
++package-lock.json
++*.tgz
+diff --git a/package.json b/package.json
+index 07d9348..c5b2132 100644
+--- a/package.json
++++ b/package.json
+@@ -58,10 +58,10 @@
+     },
+     "client": {
+       "inject": [
+-        "@deepseek-ai/dsh-client-runtime",
+         "@deepseek-ai/dsh-client-ui-sidebar",
+         "@deepseek-ai/dsh-client-locale",
+-        "@deepseek-ai/dsh-client-ui-primitives"
++        "@deepseek-ai/dsh-client-ui-primitives",
++        "@deepseek-ai/dsh-client-ui-renderer"
+       ],
+       "platform": "web"
+     }
+@@ -80,52 +80,50 @@
+     "@modelcontextprotocol/sdk": "1.30.0"
+   },
+   "peerDependencies": {
+-    "@deepseek-ai/cordis": ">=4.0.1 <5",
+-    "@deepseek-ai/dsh-agent": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-agent-default-model": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-agent-presets": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-llm": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-session": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-session-persistence": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-session-title": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-workspace": ">=0.1.1-rc.2 <0.2.0",
++    "@deepseek-ai/cordis": "~4.0.5-alpha.1",
++    "@deepseek-ai/dsh-agent": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-agent-default-model": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-llm": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-session": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-session-persistence": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-session-title": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-workspace": "0.2.1-alpha.2",
+     "@deepseek-ai/schemastery": ">=3.18.1 <4",
+-    "@deepseek-ai/dsh-host-webserver": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-mcp-client": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-client-runtime": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-client-ui-sidebar": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-client-locale": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-client-ui-primitives": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-system-prompt": ">=0.1.1-rc.2 <0.2.0",
+-    "@deepseek-ai/dsh-tools": ">=0.1.1-rc.2 <0.2.0"
++    "@deepseek-ai/dsh-host-webserver": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-mcp-client": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-ui-sidebar": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-locale": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-ui-primitives": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-system-prompt": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-tools": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-ui-renderer": "0.2.1-alpha.2"
+   },
+   "devDependencies": {
+     "@deepseek-ai/cordis": ">=4.0.1 <5",
+-    "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-agent-default-model": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-agent-presets": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-session-persistence": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-session-title": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-workspace": "^0.1.1-rc.2",
++    "@deepseek-ai/dsh-agent": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-agent-default-model": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-llm": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-session": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-session-persistence": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-session-title": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-workspace": "0.2.1-alpha.2",
+     "@deepseek-ai/schemastery": ">=3.18.1 <4",
+     "@types/node": "^24.0.0",
+     "esbuild": "^0.25.0",
+     "typescript": "^5.9.0",
+-    "@deepseek-ai/dsh-host-webserver": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-mcp-client": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-client-ui-sidebar": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-client-locale": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-client-ui-primitives": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-client-ui-slots": "^0.1.1-rc.2",
++    "@deepseek-ai/dsh-host-webserver": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-mcp-client": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-ui-sidebar": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-locale": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-ui-primitives": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-ui-slots": "0.2.1-alpha.2",
+     "@types/react": "~18.3.1",
+     "react": "^18.2.0",
+     "react-dom": "^18.2.0",
+-    "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-tools": "^0.1.1-rc.2",
+-    "@deepseek-ai/dsh-client-ui-theme": "^0.1.1-rc.2"
++    "@deepseek-ai/dsh-system-prompt": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-tools": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-ui-theme": "0.2.1-alpha.2",
++    "@deepseek-ai/dsh-client-ui-renderer": "0.2.1-alpha.2"
+   },
+   "engines": {
+     "node": ">=22"
+@@ -187,6 +185,9 @@
+     },
+     "@deepseek-ai/dsh-tools": {
+       "optional": true
++    },
++    "@deepseek-ai/dsh-client-ui-renderer": {
++      "optional": true
+     }
+   }
+ }
+diff --git a/src/app/app.tsx b/src/app/app.tsx
+index 099663c..13bb833 100644
+--- a/src/app/app.tsx
++++ b/src/app/app.tsx
+@@ -5,14 +5,16 @@ import { helmUiDictionaries, type HelmLocaleKey, type HelmTranslate } from './lo
+ import { deriveHelmCapabilitySummary, getHelmCapabilityDefinition, shouldCompactHelmCapabilitySummary } from './presentation.js'
+ import {
+   Button,
+-  IconChevronDownOutline14,
+-  IconChevronRightOutline14,
+-  IconChevronUpOutline14,
+-  IconCodeOutline16,
+-  IconWarningOutline16,
+   StateDot,
+   Tooltip,
+ } from '@deepseek-ai/dsh-client-ui-primitives'
++import {
++  IconChevronDown as IconChevronDownOutline14,
++  IconChevronRight as IconChevronRightOutline14,
++  IconChevronUp as IconChevronUpOutline14,
++  IconCode as IconCodeOutline16,
++  IconWarning as IconWarningOutline16,
++} from './icon-compat.js'
+ import type { HelmUiDependencyName, HelmUiRuntimeState, HelmUiStatus } from '../runtime/status.js'
+ import { isHelmUiRequestError, type HelmUiAdapter, type HelmExternalCapability } from './adapter.js'
+ import { SessionActivityPanel } from './components/session-activity.js'
+diff --git a/src/app/icon-compat.ts b/src/app/icon-compat.ts
+new file mode 100644
+index 0000000..c76aef2
+--- /dev/null
++++ b/src/app/icon-compat.ts
+@@ -0,0 +1,41 @@
++/**
++ * Cross-version icon resolver for `@deepseek-ai/dsh-client-ui-primitives`.
++ *
++ * DSH 0.1.x named icons by glyph + drawn size (`IconCodeOutline16`), while DSH
++ * 0.2.x moved the size into a `size` prop and renamed the suffix into a weight
++ * variant (`IconCodeOutlineRegular`, `...Medium`, plus a bare alias). Importing
++ * a name the running host does not export yields `undefined`, which React
++ * renders as the invalid-element-type error (#130).
++ *
++ * Resolving at runtime keeps one build working on both host generations. The
++ * declared props are compatible: callers pass `size`/`className` either way.
++ */
++import * as primitives from '@deepseek-ai/dsh-client-ui-primitives'
++import type { ComponentType } from 'react'
++
++export interface CompatIconProps {
++  size?: number | undefined
++  className?: string | undefined
++}
++
++type IconComponent = ComponentType<CompatIconProps>
++
++const exports_ = primitives as unknown as Record<string, unknown>
++
++function resolveIcon(...names: readonly string[]): IconComponent {
++  for (const name of names) {
++    const candidate = exports_[name]
++    if (typeof candidate === 'function' || (typeof candidate === 'object' && candidate !== null)) {
++      return candidate as IconComponent
++    }
++  }
++  // Never let a missing glyph crash the whole panel.
++  return (() => null) as unknown as IconComponent
++}
++
++/** Newest name first, legacy fallback last. */
++export const IconChevronDown = resolveIcon('IconChevronDownOutlineRegular', 'IconChevronDownOutline', 'IconChevronDownOutline14')
++export const IconChevronRight = resolveIcon('IconChevronRightOutlineRegular', 'IconChevronRightOutline', 'IconChevronRightOutline14')
++export const IconChevronUp = resolveIcon('IconChevronUpOutlineRegular', 'IconChevronUpOutline', 'IconChevronUpOutline14')
++export const IconCode = resolveIcon('IconCodeOutlineRegular', 'IconCodeOutline', 'IconCodeOutline16')
++export const IconWarning = resolveIcon('IconWarningOutlineRegular', 'IconWarningOutline', 'IconWarningOutline16')
+diff --git a/src/client.tsx b/src/client.tsx
+index dfc9ff6..3861802 100644
+--- a/src/client.tsx
++++ b/src/client.tsx
+@@ -1,5 +1,8 @@
+ import type {} from '@deepseek-ai/dsh-client-locale/client'
+-import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
++import type { Context as ClientContext } from '@deepseek-ai/cordis'
++// DSH 0.2.x moved the client `slots` service declaration here (it used to live
++// in the now-removed @deepseek-ai/dsh-client-runtime).
++import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+ import type {} from '@deepseek-ai/dsh-client-ui-sidebar/client'
+ import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
+ import {
+diff --git a/src/dsh-client-ui-primitives.d.ts b/src/dsh-client-ui-primitives.d.ts
+index 7047631..f618ec6 100644
+--- a/src/dsh-client-ui-primitives.d.ts
++++ b/src/dsh-client-ui-primitives.d.ts
+@@ -24,4 +24,22 @@ declare module '@deepseek-ai/dsh-client-ui-primitives' {
+   export const IconChevronRightOutline14: ComponentType<{ size?: number; className?: string }>
+   export const IconChevronUpOutline14: ComponentType<{ size?: number; className?: string }>
+   export const IconWarningOutline16: ComponentType<{ size?: number; className?: string }>
++
++  // DSH 0.2.x icon set: size moved from the name into the `size` prop and the
++  // numeric suffix became a Regular/Medium weight variant.
++  export const IconCodeOutline: ComponentType<{ size?: number; className?: string }>
++  export const IconCodeOutlineRegular: ComponentType<{ size?: number; className?: string }>
++  export const IconCodeOutlineMedium: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronDownOutline: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronDownOutlineRegular: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronDownOutlineMedium: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronRightOutline: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronRightOutlineRegular: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronRightOutlineMedium: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronUpOutline: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronUpOutlineRegular: ComponentType<{ size?: number; className?: string }>
++  export const IconChevronUpOutlineMedium: ComponentType<{ size?: number; className?: string }>
++  export const IconWarningOutline: ComponentType<{ size?: number; className?: string }>
++  export const IconWarningOutlineRegular: ComponentType<{ size?: number; className?: string }>
++  export const IconWarningOutlineMedium: ComponentType<{ size?: number; className?: string }>
+ }
+diff --git a/src/dsh/adapter.ts b/src/dsh/adapter.ts
+index 991e53d..3682c40 100644
+--- a/src/dsh/adapter.ts
++++ b/src/dsh/adapter.ts
+@@ -3,11 +3,10 @@ import { realpath } from 'node:fs/promises'
+ import { isAbsolute } from 'node:path'
+ import type { Context } from '@deepseek-ai/cordis'
+ import { installModelSelection, type Agent, type AgentOptions, type ModelSelection, type ModelSelectionRef } from '@deepseek-ai/dsh-agent'
+-import { resolveSessionPreset } from '@deepseek-ai/dsh-agent-presets'
+ import { createUserMessage } from '@deepseek-ai/dsh-llm'
+ import { SessionId, type SessionEvent } from '@deepseek-ai/dsh-session'
+ import type {} from '@deepseek-ai/dsh-agent-default-model'
+-import type {} from '@deepseek-ai/dsh-session-persistence'
++import type { SessionHandle } from '@deepseek-ai/dsh-session-persistence'
+ import { foldSessionTitle } from '@deepseek-ai/dsh-session-title'
+ import type {} from '@deepseek-ai/dsh-workspace'
+ import type {
+@@ -71,9 +70,7 @@ export class DshAdapter implements AgentAdapter {
+     throw new Error('DSH agentDefaultModel is unavailable; configure provider/model explicitly')
+   }
+ 
+-  #installSelection(agentCtx: Context): void {
+-    const agent = agentCtx.agent
+-    if (agent === undefined) throw new Error('DSH agent setup scope is missing agent')
++  #installSelection(agentCtx: Context, agent: Agent): void {
+     const defaults = this.ctx.get('agentDefaultModel')
+     const configured = this.config.provider && this.config.model
+       ? { provider: this.config.provider, model: this.config.model }
+@@ -98,33 +95,37 @@ export class DshAdapter implements AgentAdapter {
+     installModelSelection(agentCtx, selection)
+   }
+ 
+-  async #composeSetup(presetId?: string, signal?: AbortSignal): Promise<{ agentPreset?: string; setup: (ctx: Context) => Promise<void> | void }> {
+-    const presets = this.ctx.get('agentPresets')
+-    if (!presets) return { setup: (agentCtx) => this.#installSelection(agentCtx) }
+-    const resolvedId = presetId ?? (await waitWithSignal(presets.resolve(undefined), signal)).id
+-    return {
+-      agentPreset: resolvedId,
+-      setup: async (agentCtx) => {
+-        signal?.throwIfAborted()
+-        this.#installSelection(agentCtx)
+-        await presets.mount(agentCtx, resolvedId)
+-        signal?.throwIfAborted()
+-      },
+-    }
++  /**
++   * DSH 0.2.x removed `dsh-agent-presets` (the per-session mount API):
++   * declarative presets are now activated eagerly by the host registry and
++   * linked to each agent scope before resume, and the chosen preset id lives on
++   * the persisted session header (`header.agentPreset`). Only the
++   * model-selection half of the old composition remains here -- exactly the
++   * fallback 0.1.x already took when `agentPresets` was unavailable.
++   */
++  #composeSetup(): { setup: (agentCtx: Context, agent: Agent) => void } {
++    return { setup: (agentCtx, agent) => this.#installSelection(agentCtx, agent) }
+   }
+ 
+   async #load(sessionId: string, signal?: AbortSignal): Promise<Loaded> {
+     const live = this.ctx.agents.get(SessionId(sessionId))
+-    if (live) return { agent: live, events: live.session.events, header: live.session.header }
++    if (live) return { agent: live, events: live.session.snapshotEvents(), header: live.session.header }
+     const persistence = this.ctx.get('sessionPersistence')
+     if (!persistence) throw new Error(`session ${sessionId} is not live and session persistence is unavailable`)
++    let handle: SessionHandle
+     try {
+-      const inspected = await waitWithSignal(persistence.inspect(SessionId(sessionId)), signal)
+-      return { events: inspected.events, header: inspected.meta }
++      // 0.2.x persistence exposes per-session handles instead of `inspect()`.
++      handle = await waitWithSignal(persistence.open(SessionId(sessionId), 'read'), signal)
+     } catch (error) {
+       if (signal?.aborted) throw error
+       throw new Error(`DSH session not found: ${sessionId}`)
+     }
++    try {
++      const read = await waitWithSignal(handle.read(), signal)
++      return { events: read.events, header: handle.header }
++    } finally {
++      await handle.close().catch(() => {})
++    }
+   }
+ 
+   async #ensureAgent(sessionId: string, signal?: AbortSignal): Promise<Agent> {
+@@ -132,9 +133,9 @@ export class DshAdapter implements AgentAdapter {
+     if (live) return live
+     const persistence = this.ctx.get('sessionPersistence')
+     if (!persistence) throw new Error(`cannot resume ${sessionId}: session persistence unavailable`)
+-    const inspected = await waitWithSignal(persistence.inspect(SessionId(sessionId)), signal)
+-    const presetId = resolveSessionPreset({ header: inspected.meta, events: inspected.events })
+-    const composition = await this.#composeSetup(presetId, signal)
++    const snapshot = await waitWithSignal(persistence.stat(SessionId(sessionId)), signal)
++    if (!snapshot) throw new Error(`DSH session not found: ${sessionId}`)
++    const composition = this.#composeSetup()
+     const handle = await this.ctx.agents.resume({
+       resumeSessionId: SessionId(sessionId),
+       agentOptions: this.#agentOptions(),
+@@ -200,14 +201,11 @@ export class DshAdapter implements AgentAdapter {
+   async createSession(input: CreateSessionInput, signal?: AbortSignal): Promise<SessionDetail> {
+     const workspace = await this.#resolveWorkspaceForCreate(input.workspace, signal)
+     const sessionId = `session-${randomUUID()}`
+-    const composition = await this.#composeSetup(undefined, signal)
++    const composition = this.#composeSetup()
+     const handle = await this.ctx.agents.create({
+       sessionId: SessionId(sessionId),
+       agentOptions: this.#agentOptions(),
+-      meta: {
+-        cwd: workspace.path,
+-        ...(composition.agentPreset ? { agentPreset: composition.agentPreset } : {}),
+-      },
++      meta: { cwd: workspace.path },
+       setup: composition.setup,
+     })
+     if (signal?.aborted) {
+@@ -241,24 +239,19 @@ export class DshAdapter implements AgentAdapter {
+     const persistence = this.ctx.get('sessionPersistence')
+ 
+     if (persistence) {
+-      const headers = await waitWithSignal(persistence.list(), signal)
+-      const ordered = [...headers].sort((a, b) => {
+-        const aa = record(a); const bb = record(b)
+-        const at = typeof aa.createdAt === 'number' ? aa.createdAt : Date.parse(String(aa.updatedAt ?? '')) || 0
+-        const bt = typeof bb.createdAt === 'number' ? bb.createdAt : Date.parse(String(bb.updatedAt ?? '')) || 0
++      const snapshots = await waitWithSignal(persistence.list(), signal)
++      const ordered = [...snapshots].sort((a, b) => {
++        const at = Number(record(record(a).header).createdAt) || 0
++        const bt = Number(record(record(b).header).createdAt) || 0
+         return bt - at
+       })
+-      for (const header of ordered) {
+-        const h = record(header)
++      for (const snapshot of ordered) {
++        const h = record(record(snapshot).header)
+         const id = String(h.id ?? h.sessionId ?? '')
+         if (!id) continue
+         const agent = live.get(id)
+-        const workspace = typeof h.cwd === 'string'
+-          ? h.cwd
+-          : typeof record(h.meta).cwd === 'string' ? String(record(h.meta).cwd) : undefined
+-        const updatedAt = typeof h.updatedAt === 'string'
+-          ? h.updatedAt
+-          : typeof h.createdAt === 'number' ? new Date(h.createdAt).toISOString() : undefined
++        const workspace = typeof h.cwd === 'string' ? h.cwd : undefined
++        const updatedAt = typeof h.createdAt === 'number' ? new Date(h.createdAt).toISOString() : undefined
+         rows.set(id, {
+           id,
+           agent: this.id,
+@@ -274,7 +267,7 @@ export class DshAdapter implements AgentAdapter {
+     for (const agent of live.values()) {
+       const id = String(agent.id)
+       if (rows.has(id)) continue
+-      const updatedAt = lastEventTime(agent.session.events)
++      const updatedAt = lastEventTime(agent.session.snapshotEvents())
+       const header = record(agent.session.header)
+       const workspace = typeof header.cwd === 'string' ? header.cwd : undefined
+       rows.set(id, {
+diff --git a/src/hosts/dsh.ts b/src/hosts/dsh.ts
+index 56ef429..902cc6a 100644
+--- a/src/hosts/dsh.ts
++++ b/src/hosts/dsh.ts
+@@ -2,7 +2,6 @@ import type { Context } from '@deepseek-ai/cordis'
+ import z from '@deepseek-ai/schemastery'
+ import type {} from '@deepseek-ai/dsh-agent'
+ import type {} from '@deepseek-ai/dsh-agent-default-model'
+-import type {} from '@deepseek-ai/dsh-agent-presets'
+ import type {} from '@deepseek-ai/dsh-session-persistence'
+ import type {} from '@deepseek-ai/dsh-session-title'
+ import type {} from '@deepseek-ai/dsh-workspace'
+diff --git a/src/index.ts b/src/index.ts
+index c417c8a..917616b 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,7 +1,6 @@
+ import type { Context } from '@deepseek-ai/cordis'
+ import type {} from '@deepseek-ai/dsh-agent'
+ import type {} from '@deepseek-ai/dsh-agent-default-model'
+-import type {} from '@deepseek-ai/dsh-agent-presets'
+ import type {} from '@deepseek-ai/dsh-session-persistence'
+ import type {} from '@deepseek-ai/dsh-session-title'
+ import type {} from '@deepseek-ai/dsh-workspace'
+@@ -21,7 +20,6 @@ export const name = 'dsh-with-chatgpt'
+ export const inject = [
+   'agents',
+   'agentDefaultModel',
+-  'agentPresets',
+   'sessions',
+   'sessionPersistence',
+   'workspaceRegistry',
