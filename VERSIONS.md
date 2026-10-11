@@ -34,3 +34,19 @@ pnpm run build
 ```
 
 （或直接用本仓库的 `setup.sh` 自动完成。）
+
+## 随仓库附带的源码快照
+
+为了在无法访问 GitHub 上游时也能复现，本仓库自带：
+
+```
+vendor/dsh-v0.1.1-rc.2-src.tar.gz        # 0.1.1-rc.2 源码快照 (git archive)
+vendor/dsh-v0.1.1-rc.2-src.tar.gz.sha256 # sha256: 3a8a6ab18ef8cede2a75c59194b2b958dc4f98d9fc9901941daaaf3d30af3d9a
+```
+
+解开即可当作 dsh 源码目录（MIT License，版权归 DeepSeek，见上游 LICENSE）：
+
+```bash
+tar xzf vendor/dsh-v0.1.1-rc.2-src.tar.gz -C ~/dsh-official-src
+cd ~/dsh-official-src && pnpm install && pnpm run build
+```
