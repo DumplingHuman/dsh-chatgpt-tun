@@ -76,6 +76,8 @@ ssh <target> "systemctl --user is-active <service>"
 
 | 文件 | 作用 |
 |---|---|
+| `setup.sh` | 一键复现整个环境（clone 对应 tag + 装插件 + 打补丁 + systemd） |
+| `VERSIONS.md` | 版本锁定清单 + 为什么不能用最新版 |
 | `patch-agenthelm-sandbox.sh` | 幂等补丁脚本（A–F） |
 | `config.agent-helm.example.yml` | Agent Helm 用户配置示例 |
 | `wait-agent-helm.sh` | 等待 daemon(3457) 就绪，供 `dsh-watch` 的 `ExecStartPre` 使用 |
