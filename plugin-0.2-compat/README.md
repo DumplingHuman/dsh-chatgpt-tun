@@ -15,10 +15,25 @@
 附带：`dsh-client-runtime` 包被删（`ClientContext` 现在就是 `@deepseek-ai/cordis` 的 `Context`；
 `slots` 服务改由 `dsh-client-ui-renderer` 声明）；`AgentSetup` 签名变成 `(agentCtx, agent)`。
 
-## 改了什么
+## 本目录内容
+
+```
+README.md                          本文
+source/                            完整 fork 源码（已打补丁，可直接 build）
+dsh-0.2-compat.patch               相对上游 v0.1.4 的补丁
+dsh-with-chatgpt-0.1.4-dsh02.tgz   预编译、可直接安装
+install-0.2.sh                     安装脚本（预编译 / 从源码）
+```
+
+`source/` 就是打过补丁的上游 `v0.1.4` 源码，可直接：
+
+```bash
+cd source && npm install --no-audit --no-fund --legacy-peer-deps && npm run build
+```
+
+## 改动清单
 
 见 `dsh-0.2-compat.patch`（相对上游 `v0.1.4`，9 个文件 / +148 −89）：
-
 - **`src/app/icon-compat.ts`（新增）**：运行时图标解析器，按
   `IconXxxOutlineRegular → IconXxxOutline → IconXxxOutline14` 顺序取第一个存在的导出，
   取不到就渲染 `null`。**一份构建同时兼容 0.1.x 和 0.2.x**。
