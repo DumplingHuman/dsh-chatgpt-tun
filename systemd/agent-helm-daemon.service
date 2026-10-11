@@ -1,0 +1,18 @@
+[Unit]
+Description=Agent Helm Core daemon (for dsh-with-chatgpt plugin on :4001)
+After=network.target
+
+[Service]
+Type=simple
+ExecStartPre=/home/zpl/patch-agenthelm-sandbox.sh
+Environment=HOME=/home/zpl
+Environment=PATH=/home/zpl/.agent-helm/bin:/home/zpl/.local/bin:/home/zpl/.nvm/versions/node/v22.19.0/bin:/usr/local/bin:/usr/bin:/bin
+Environment=HTTPS_PROXY=http://127.0.0.1:7897
+Environment=HTTP_PROXY=http://127.0.0.1:7897
+Environment="NODE_OPTIONS=--import /home/zpl/.dsh-plugin/profiles/web/proxy-fetch.mjs"
+ExecStart=/home/zpl/.nvm/versions/node/v22.19.0/bin/node /home/zpl/.dsh-plugin/profiles/web/node_modules/@beforewave/agent-helm/lib/cli.js daemon --host 127.0.0.1 --port 3457 --socket /home/zpl/.agent-helm/run/daemon.sock
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

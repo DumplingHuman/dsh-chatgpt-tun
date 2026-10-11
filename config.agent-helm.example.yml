@@ -1,0 +1,13 @@
+# ~/.config/agent-helm/config.yml 示例
+execution:
+  allowUnsandboxed: true
+  filesystem:
+    allow:
+      - /home/YOUR_USER/.ssh          # 让 ssh 能写 known_hosts
+    readOnly:
+      - /home/YOUR_USER/.dsh-plugin/profiles/web/node_modules/@anthropic-ai/sandbox-runtime
+workspaces:
+  - title: your-project
+    path: /home/YOUR_USER/your-project
+    semantic:
+      languages: [javascript, typescript]
